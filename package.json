@@ -1,0 +1,43 @@
+{
+  "name": "gmb_back_end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "start": "nodemon server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wijipirunthi/GMB_BACK_END.git"
+  },
+  "author": "VithushiyanP",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wijipirunthi/GMB_BACK_END/issues"
+  },
+  "homepage": "https://github.com/wijipirunthi/GMB_BACK_END#readme",
+  "dependencies": {
+    "async-await-foreach": "^1.0.4",
+    "automapper-js": "^1.1.0",
+    "axios": "^0.21.1",
+    "azure-storage": "^2.10.4",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "generate-password": "^1.5.1",
+    "he": "^1.2.0",
+    "into-stream": "^5.0.0",
+    "jshint": "^2.10.3",
+    "jsonwebtoken": "^8.5.1",
+    "mssql": "^6.2.3",
+    "multer": "^1.2.0",
+    "node-mapper": "^1.0.0",
+    "nodemailer": "^6.4.2",
+    "nodemon": "^2.0.7",
+    "querystring": "^0.2.1",
+    "request": "^2.88.0",
+    "swagger-ui-express": "^4.1.2"
+  }
+}
