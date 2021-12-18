@@ -5,9 +5,9 @@ const adddiscount = require('../model/discountModel.js');
 
 router.post('/discount', async(req,res)=>{
     try{
-        const orderID = req.body.orderID;
+        const tempClientID = req.body.tempClientID;
         const discount = req.body.discount;
-        const result = await adddiscount.AddDiscount(orderID,discount)
+        const result = await adddiscount.AddDiscount(tempClientID,discount)
         res.json(result);
     }catch(err){
         res.status(403).json("Error Occured");

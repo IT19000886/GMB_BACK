@@ -3,18 +3,18 @@ var sql = require("mssql");
 const dbCon = require('../common/db.js');
 var data = {};
 
-data.AddDiscount = async function(orderID,discount){
+data.AddDiscount = async function(tempClientID,discount){
     return new Promise((resolve,reject) =>{
         sql.connect(dbCon)
         .then(pool =>{
             return pool.request()
-            .input('OrderID',sql.Int,orderID)
+            .input('TempClientID',sql.Int,tempClientID)
             .input('DiscountPercentage', sql.Float,discount)
-            .query('EXEC GMB.usp_AddDiscounts @OrderID,@DiscountPercentage');
+            .query('EXEC GMB.usp_AddDiscounts @TempClientID, @DiscountPercentage');
         
         })
         .then(result =>{
-            resolve(result.recordset[0])
+            resolve(result.recordsets[0])
         })
         .catch(err => {
             console.log(err);
@@ -25,13 +25,13 @@ data.AddDiscount = async function(orderID,discount){
         });
 };
 
-data.GetDiscountsByOrderID = async function(orderID){
+data.GetDiscountsByTempClientID = async function(tempClientID){
     return new Promise((resolve,reject)=>{
         sql.connect(dbCon)
         .then(pool =>{
             return pool.request()
-            .input('OrderID', sql.Int,orderID)
-            .query('EXEC GMB.usp_GetDiscountsByOrderID @OrderID')
+            .input('TempClientID', sql.Int,tempClientID)
+            .query('EXEC GMB.usp_GetDiscountsByTempClientID @TempClientID')
         })
         .then(result => {
             resolve(result.recordsets[0])
