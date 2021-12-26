@@ -46,25 +46,7 @@ data.UpdateCoveringTypeByCoveringTypeID = async function (coveringTypeID,coverin
     });
 };
 
-data.GetAllAdditionalCharges = async function () {
-    return new Promise((resolve, reject) => {
-        sql.connect(dbCon)
-            .then(pool => {
-                
-                return pool.request()
-                    .query('EXEC GMB.usp_GetAllAdditionalCharges');
-            })
-            .then(result => {
-                resolve(result.recordsets[0])
-            })
-            .catch(err => {
-                console.log(err);
-            })
-        sql.on('error', err => {
-            console.log(err);
-        })
-    });
-};
+
 
 data.GetCoveringType = async function () {
     return new Promise((resolve, reject) => {
@@ -151,6 +133,25 @@ data.GetLocation = async function () {
             .then(pool => {
                 return pool.request()
                     .query('EXEC GMB.usp_GetLocation');
+            })
+            .then(result => {
+                resolve(result.recordsets[0])
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        sql.on('error', err => {
+            console.log(err);
+        })
+    });
+};
+
+data.GetLocationCode = async function () {
+    return new Promise((resolve, reject) => {
+        sql.connect(dbCon)
+            .then(pool => {
+                return pool.request()
+                    .query('EXEC GMB.usp_GetLocationCode');
             })
             .then(result => {
                 resolve(result.recordsets[0])
@@ -484,4 +485,23 @@ data.DeleteCoveringSubType2ByCoveringSubType2ID = async function (coveringSubTyp
     });
 };
 
+data.GetAllAdditionalCharges = async function () {
+    return new Promise((resolve, reject) => {
+        sql.connect(dbCon)
+            .then(pool => {
+                
+                return pool.request()
+                    .query('EXEC GMB.usp_GetAllAdditionalCharges');
+            })
+            .then(result => {
+                resolve(result.recordsets[0])
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        sql.on('error', err => {
+            console.log(err);
+        })
+    });
+};
 module.exports = data;

@@ -85,6 +85,16 @@ router.get('/location', async (req, res) => {
     }
 });
 
+router.get('/locationCode', async (req, res) => {
+    try {
+        const result = await setting.GetLocationCode()
+        res.json(result);
+    } catch (err) {
+        res.status(403).json("Error occurred");
+        console.log(err);
+    }
+});
+
 router.delete('/location/:locationID', async (req, res) => {
     try {
         const locationID = req.params.locationID

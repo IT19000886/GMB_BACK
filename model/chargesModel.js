@@ -3,20 +3,20 @@ var sql = require("mssql");
 const dbCon = require('../common/db.js');
 var data = {};
 
-data.AddAddCharges = async function(orderID,addchargetype,priceperone,quantity,price){
+data.AddAddCharges = async function(tempClientID,addchargetype,priceperone,quantity,price){
     return new Promise((resolve,reject)=>{
         sql.connect(dbCon)
             .then(pool =>{
                 return pool.request()
-                    .input('OrderID', sql.Int, orderID)
+                    .input('TempClientID', sql.Int, tempClientID)
                     .input('AddChargeType', sql.VarChar(100), addchargetype)
                     .input('PricePerOne', sql.Float,priceperone)
                     .input('Quantity', sql.Int,quantity)
                     .input('Price', sql.Float,price)
-                    .query('EXEC GMB.usp_AddAddCharges @OrderID, @AddChargeType, @PricePerOne,@Quantity,@Price');
+                    .query('EXEC GMB.usp_AddAddCharges @TempClientID, @AddChargeType, @PricePerOne,@Quantity,@Price');
             })
             .then(result =>{
-                resolve(result.recordset[0])
+                resolve(result.recordsets[0])
             })
             .catch(err => {
                 console.log(err);
@@ -52,13 +52,13 @@ data.UpdateAddChargesByAddChargeID = async function (addchargeid,addchargetype,p
     });
 };
 
-data.GetAllAddChargersByOrderID = async function(orderID){
+data.GetAllAddChargersByTempClientID = async function(tempClientID){
     return new Promise((resolve, reject)=>{
         sql.connect(dbCon)
         .then(pool => {
             return pool.request()
-            .input('OrderID', sql.Int,orderID)
-            .query('EXEC GMB.usp_GetAllAddChargersByOrderID @OrderID')
+            .input('TempClientID', sql.Int,tempClientID)
+            .query('EXEC GMB.usp_GetAllAddChargersByTempClientID @TempClientID')
         })
         .then(result => {
             resolve(result.recordsets[0])

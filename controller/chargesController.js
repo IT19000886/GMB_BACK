@@ -5,12 +5,12 @@ const router = express.Router();
 
 router.post('/charges', async (req,res) =>{
     try{
-        const orderID = req.body.orderID;
+        const tempClientID = req.body.tempClientID;
         const addchargetype = req.body.addchargetype;
         const priceperone = req.body.priceperone;
         const quantity = req.body.quantity;
-        const price = req.body.price;
-        const result = await charges.AddAddCharges(orderID,addchargetype,priceperone,quantity,price)
+        const price = priceperone * quantity;
+        const result = await charges.AddAddCharges(tempClientID,addchargetype,priceperone,quantity,price)
         res.json(result);
     }catch(err){
         res.status(403).json("Error Occured");
@@ -18,10 +18,10 @@ router.post('/charges', async (req,res) =>{
     }
 });
 
-router.get('/charges/:orderID', async(req,res)=>{
+router.get('/charges/:tempClientID', async(req,res)=>{
     try{
-    const orderID = req.params.orderID
-    const result = await charges.GetAllAddChargersByOrderID(orderID)
+    const tempClientID = req.params.tempClientID
+    const result = await charges.GetAllAddChargersByTempClientID(tempClientID)
     res.json(result);
 } catch (err) {
     res.status(403).json("Error occurred");
