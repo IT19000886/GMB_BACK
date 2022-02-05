@@ -111,6 +111,7 @@ router.get('/cal/:tempClientID', async (req, res) => {
     try {
         const tempClientID = req.params.tempClientID
         const result = await order.GetAllOrdersByTempClientID(tempClientID)
+    
 
         var total=0;
 
@@ -134,6 +135,7 @@ router.get('/cal/:tempClientID', async (req, res) => {
             let Quantity = value.Quantity;
             let FabricWidth = value.FabricWidth;
 
+                
             if (!res[CoveringType]) {
               res[CoveringType] = { CoveringType: CoveringType,Quantity: 0,TotalMaterial: 0,MaterialPrice: 0,AditionalCharges: 0,LabourCost: 0,AvgTotal: 0, Total: 0 };
               data.push(res[CoveringType])
@@ -238,7 +240,11 @@ router.get('/cal/:tempClientID', async (req, res) => {
                 res[CoveringType].LabourCost  = Math.round(labourCost);
             }
             return res;
-          }, {});
+           
+
+          },
+          
+          {});
           
         //   console.log(data)
         res.json(data);

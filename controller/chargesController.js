@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.post('/charges', async (req,res) =>{
     try{
+
         const tempClientID = req.body.tempClientID;
         const addchargetype = req.body.addchargetype;
         const priceperone = req.body.priceperone;
@@ -28,5 +29,16 @@ router.get('/charges/:tempClientID', async(req,res)=>{
     console.log(err);
 }
 });
+
+router.get('/tcharges/:tempClientID',async(req,res)=>{
+    try{
+        const tempClientID = req.params.tempClientID
+        const result = await charges.GetAllChargesByTempClientID(tempClientID)
+        res.json(result);
+    } catch (err) {
+        res.status(403).json("Error occurred");
+        console.log(err);
+    }
+    });
 
 module.exports = router;

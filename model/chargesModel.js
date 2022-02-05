@@ -110,4 +110,25 @@ data.DeleteAddChargesByAddChargeID = async function (addchargeid) {
         })
     });
 };
+
+
+data.GetAllChargesByTempClientID = async function(tempClientID){
+    return new Promise((resolve, reject)=>{
+        sql.connect(dbCon)
+        .then(pool => {
+            return pool.request()
+            .input('TempClientID', sql.Int,tempClientID)
+            .query('EXEC GMB.usp_GetAllChargesByTempClientID @TempClientID')
+        })
+        .then(result => {
+            resolve(result.recordsets[0])
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    sql.on('error', err => {
+        console.log(err);
+    })
+    });
+};
 module.exports = data;
